@@ -1,3 +1,76 @@
+### Instalando o Docker
+
+Primeiro, certifique-se de que o Docker está instalado e funcionando. No WSL, siga os passos abaixo:
+
+Atualize seu sistema e instale os pacotes necessários:
+
+```bash
+sudo apt update
+sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
+```
+
+Adicione o repositório oficial do Docker:
+
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+```
+
+Instale o Docker:
+
+```bash
+sudo apt update
+sudo apt install -y docker-ce
+```
+
+Verifique se o Docker está funcionando:
+
+```bash
+sudo systemctl status docker
+```
+
+Se estiver tudo certo, você verá que o serviço do Docker está ativo. Caso contrário, você pode iniciar o serviço manualmente com:
+
+```bash
+sudo systemctl start docker
+```
+
+Para evitar ter que usar `sudo` em todos os comandos Docker, adicione seu usuário ao grupo `docker`:
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+Depois disso, saia da sessão e entre novamente ou use o comando `newgrp docker` para aplicar a mudança.
+
+---
+
+### Instalando o Docker Compose
+
+O Docker Compose é essencial para executar ambientes multi-containers. Se ele não está disponível, você pode instalá-lo manualmente:
+
+Baixe a versão mais recente do Docker Compose:
+
+```bash
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.6.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+```
+
+Dê permissões de execução ao binário:
+
+```bash
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
+Verifique se o Docker Compose foi instalado corretamente:
+
+```bash
+docker-compose --version
+```
+
+Isso deve retornar a versão do Docker Compose instalada, confirmando que está funcionando.
+
+Esse formato em Markdown está organizado para facilitar a leitura e execução dos comandos.
+
 # Implementação do Fedimintd e Lightning Gateway
 
 Este guia descreve os passos para implementar o Fedimintd e o Lightning Gateway em uma máquina que já possui o `bitcoind` e `lnd` rodando localmente ou remoto.
